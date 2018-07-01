@@ -1,0 +1,25 @@
+Se voce se refere ao terminal mostrar o branch atual ao lado do nome da pasta basta adicionar isso ao seu .bashrc ou .bash_profile:
+
+### Git branch on terminal
+function parse_git_branch () {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[01;32m\]"
+LIGHT_GREEN="\[\e[0;32m\]"
+RED="\[\033[0;31m\]"
+RED_BRIGHTNESS="\[\033[1;31m\]"
+GRAY="\[\033[0;37m\]"
+NO_COLOR="\[\033[0m\]"
+
+PS1="$GREEN\u$GRAY@$GREEN\h$NO_COLOR:\w$YELLOW\$(parse_git_branch)$NO_COLOR\$ "
+
+force_color_prompt=yes
+
+Após salvar você pode reabrir o terminal ou executar um source ~/.bashrc (ou ~/.bash_profile) para carregar as novas configuracoes
+
+Lembrando que este é o que eu utilizo, mas você pode alterar as cores como quiser, substituindo $NOMECOR no PS1 por outra que esteja cadastrada acima, ou pode ficar livre para adicionar mais cores, seguindo o padrão das já adicionadas.
+
+Isso é bem simples de fazer. Siga o seguinte tutorial: https://www.leaseweblabs.com/2013/08/git-tip-show-your-branch-name-on-the-linux-prompt/

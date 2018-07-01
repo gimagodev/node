@@ -1,0 +1,272 @@
+ÍNDICE
+
+    INSTALAÇÃO
+    TERMOS
+    LINKS
+    COMANDOS/ATALHOS/ETC
+
+
+
+ver padrões TC39 (corpo de normas que definem a sintaxe e a semântica do ECMAScript)
+------------------------------------------------------------------------------------------------------------------
+INSTALAÇÃO:
+-----------------------------------------------------------------------------------------------------------------
+Preparando projeto WEBAPI
+
+> npm init:   cria o package.json. tecle enter para as perguntas
+> npm i express mongodb body-parservpmdy
+
+Node.js:  https://nodejs.org
+        Composto por:
+            Um runtime JavaScript (Google V8, o mesmo do Chrome)
+            Uma biblioteca para I/O de baixo nível (libuv);
+            Bibliotecas de desenvolvimemto básico (os core modules)
+            Um gerenciador de pacotes via linha de comando (NPM)
+            Um gereniador de versões via linha de comando (NVM)
+            Utilitário REPL via linha de compando
+
+Express: Web framework mais famoso da atualidade para Node.js
+        c:\node> npm install -g express-generator
+
+        iniciar o Express:  npm start
+
+        Gerar o Express:
+            express -e --git workshop  onde workshop é o nome da aplicação
+            onde "-e" indica o uso da view-engine (motor de renderização) EJS.
+                "--git" deixa o projeto preparado para versionamento com Git.
+
+        Criar um projeto, como exemplo o projeto 'crud'
+        1)   express -e --git crud   /* obs -generator não funcionou. Executei sem
+        2)    cd crud
+        3)    npm install  (instala as dependências)
+        4)    npm start  (inicializa o server)
+        5)    MongoDB drivers
+                npm install mongodb
+
+MongoDB:
+        http://www.mongodb.org
+        MongoDB Compass
+        Local de instalação: 
+            C:\MongoDB\Server\3.6\bin
+
+        Carregar:
+            c:\mongodb\server\3.6\bin\mongod  --dbpath c:\mongodb\data  (server)
+            c:\mongodb\server\3.6\bin\mongo  (cliente)
+            ./mnt/c/MongoDB/Server/3.6/bin/
+        
+        Comandos básicos:
+            > show databases (mostra os banco de dados)
+            > use workshop  (acessa o banco de dados)
+            > show collections
+            > db.customers.find()   (mostra todos os registros do banco de dados)
+            > db.customers.insert({nome:"Luiz", idade:29})   (insere registro)
+            > show collections
+                customers
+                > custArray = [{nome:"Fernando", idade:20},{nome:"Teste", "uf":"RS"}]
+                [
+                        {
+                                "nome" : "Fernando",
+                                "idade" : 20    
+                        },
+                        {
+                                "nome" : "Teste",
+                                "uf" : "RS"
+                        }
+                ]
+                >db.customers.insert(custArray)
+                >dv.customers.find().pretty()  (busca formantando o resultado)
+                >db.customers.update({nome:"Luiz"}, {nome:"Luiz", idade:29, uf:"RS"})  ( update burro)
+                    WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+                >db.customers.updateOne({_id: ObjectId("5b2c04b1c8968380669f69af")}, {$set:{idade:28}})   (update inteligente)
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+TYPESCRIPT: 
+    https://code.visualstudio.com/docs/languages/typescript
+    https://www.typescriptlang.org
+    https://channel9.msdn.com/Events/Build/2017/B8088/
+    https://imasters.com.br/desenvolvimento/typescript-configurando-o-vs-code-para-escrever-rodar-e-debugar
+    https://medium.com/@programadriano/node-e-typescript-f632deabe356
+
+    Instalação:
+        npm install -g typescript  
+        tsc helloworld.ts  // compila o fonte para .js
+        tsc --version   // para testar
+        tsc --help
+        
+
+
+------------------------------------------------------------------------------------------------------------------
+TERMOS
+------------------------------------------------------------------------------------------------------------------
+AMBIENTE DE DESENVOLVIMENTO JAVA:
+        Controladores de Versões:  GIT, SVN, CVS 
+        Ferramentas de Gestão: Jira, Redmine
+        Ferramentas de Build: Ant, Maven
+        Verificadores de Códigos: Sonar
+
+BASH:   Bourne-Again Shell. Stephen Bourne, the author of the direct ancestor of the current Unix shell sh 
+BSON:   JSON binário. Formato de dados usados no MongoDB. Os documentos BSON do MongoDB são schemaless e aceitam
+        quase qualquer coisa que você quiser armazenar. sendo um mecanismo de persistência perfeito para uso com 
+        tecnologias que trabalham com JSON nativamente, como JavaScript, ou Node.js. Além do formato de documentos utilizado 
+        pelo MongoDB ser perfeitamente intercambiãvel com o JSON serializado do JS, MongoDB opera basicamente de
+        maneira assíncrona em suas operações, assim como o prório Node.js, o que nos permite ter uma persistência
+        extremamente veloz aliado a uma plataforma de programação igualmente rápida.
+
+        Embora o uso de Node.js com bancos de daos relacionais não seja incomum, é com os bancos não-relacionais
+        como MongoDB e Redis que ele mostra todo o seu poder de tecnologia para aplicações real-time e volumes
+        absurdos de requisições na casa de 500 mil/s com as confirgurações de servidor adequadas.
+        Além disso, do ponto de vista do desenvolvedor, usar MongoDB permite criar uma stack completa apenas
+        usando JS uma vez que temos JS no lado do cliente, do servidor (com Node.js) e do banco de dados (com MongoDB),
+        pois todas as queries são criadas usando JS também.
+
+Callback: 
+
+EJS:    Embedded JavaScript. View engine de renderização para o Express que permite misturar HTML com JavaScript
+        server-side para criar os layouts. Arquivos .ejs são processados pelo módulo EJS em conjunto com o Node.js.
+        Esse módulo lê o arquivo .ejs, da primeira à última linha, e quando encontra uma server-tag (tags com %),
+        delega o Node.js que faça alguma coisa com ela, pois é código JS server-side.
+
+ECMAScript 6: (ECMA-European Computer Manufacturers Association)  O ECMAScript (ES) é a especificação da linguagem de script que o JavaScript implementa, ou seja, 
+        é a descrição formal e estruturada de uma linguagem de script, sendo padronizada pela Ecma International – 
+        associação criada em 1961 dedicada à padronização de sistemas de informação e comunicação – na especificação ECMA-262. 
+        No dia 17 de junho de 2015, foi definida a sexta edição da especificação, a ES6 (também chamada de ECMAScript 2015).
+        https://imasters.com.br/front-end/o-ecmascript-6-e-o-futuro-do-javascript
+
+
+FULL STACK JS DEVELOPER - A mesma linguagem em todos os nívels. JS no cliente, no Server e no DB com Mongo
+
+JENKINS: É uma ferramenta de integração contínua open-source. Integração contínua, no contexto de desenvolvimento
+        de sistemas, é a compilação e execução dos testes continuamente ou frequentemente peritindo que os problemas
+        sejam identificados o mais cedo possível.
+        “Integração Contínua é uma pratica de desenvolvimento de software onde os membros de um time integram seu 
+        trabalho frequentemente, geralmente cada pessoa integra pelo menos diariamente – podendo haver multiplas 
+        integrações por dia. Cada integração é verificada por um build automatizado (incluindo testes) para detectar 
+        erros de integração o mais rápido possível. Muitos times acham que essa abordagem leva a uma significante 
+        redução nos problemas de integração e permite que um time desenvolva software coeso mais rapidamente.” 
+                                                                                                    Martin Fowler
+
+        Jenkins é um servidor de Integração Contínua open-source feito em Java, pode ser rodado de forma standalone 
+        ou como uma web aplicação dentro de um servidor web.
+
+Vantagens:
+Builds periódicos;
+Testes automatizados;
+Possibilita analise de código;
+Identificar erros mais cedo;
+Fácil de operar e configurar;
+Comunidade ativa;
+O Jenkins integra outras ferramentas através de plugins existentes na própria aplicação.
+        http://jenkins-ci.org,  https://pt.wikiversity.org/wiki/Github_-_Jenkins
+
+
+
+JSON:   JavaScript Object Notation
+
+ORM - ORM (Object-Relational Mapping) - Sequelize é um exemplo.
+
+PIPELINE:    segmentação de instruções (em inglês, pipeline) é uma técnica hardware que permite que a CPU realize a busca
+        de uma ou mais instruções além da próxima a ser executada. Estas instruções são colocadas em uma fila de memória 
+        dentro do processador (CPU) onde aguardam o momento de serem executadas: assim que uma instrução termina o primeiro 
+        estágio e parte para o segundo, a próxima instrução já ocupa o primeiro estágio.
+        https://pt.wikipedia.org/wiki/Pipeline_(hardware)
+
+RADA ThoughWorks: ThoughtWorkers’ são pessoas apaixonadas por tecnologia. Nós desenvolvemos, pesquisamos,
+                testamos, contribuímos com código livre, escrevemos e visamos a sua constante melhoria — para todas
+                as pessoas. Nossa missão é liderar e promover a excelência de software e revolucionar a indústria de TI.
+                Nós criamos e compartilhamos o Technology Radar da ThoughtWorks para apoiar essa missão. O Conselho
+                Consultivo de Tecnologia (Technology Advisory Board, ou TAB), um grupo de líderes experientes
+                em tecnologia da ThoughtWorks, é responsável por criar o Radar. O grupo se reúne regularmente para
+                discutir a estratégia global de tecnologia para a empresa e as tendências tecnológicas que impactam
+                significativamente a nossa indústria. 
+                https://assets.thoughtworks.com/assets/technology-radar-vol-18-pt.pdf
+
+
+RavenDB: 
+RethinkDB:
+YARN:   Package Manager. Gerenciador de pacotes para Javascript utilizado pelo Facebook desde 2016. Concorre com o NPM. 
+        O Yarn é open source, e nasceu com a colaboração, também, das empresas Exponent, Google, e Tilde. 
+        O Yarn funciona exatamente como o NPM e o Bower, abrangendo, inclusive, as bibliotecas que estão presentes nestes
+        gerenciadores. Uma das coisas mais interessantes, além da rapidez, é a possibilidade de instalação de pacotes offline. 
+        Quando você instala um pacote, ele cria um cache em sua máquina que possibilita a futura instalação deste sem 
+        precisar estar conectado à internet.
+        https://tableless.com.br/yarn-evolucao-do-npm/
+
+------------------------------------------------------------------------------------------------------------------
+LINKS:
+--------------------------------------------------------------------------------------------------------------------
+Teste online de JS, HTML e CSS: http://jsfiddle.net/
+Expressões Regulares:           https://tableless.com.br/o-basico-sobre-expressoes-regulares/?utm_source=tablelessRelatedLink
+mLab.com:                       https://mlab.com/signup/ - Hospedagem com 500MB free. Disponbiliza MongoDB
+MongoDB:                        http://www.mongodb.org
+UMBLER:                         https://www.umbler.com/br - Cloud Hosting para agências e devs
+Tags Html:                      http://www.w3schools.com/tags/tag_iput.asp
+Windows ComandLine:             https://blogs.msdn.microsoft.com/commandline/
+Instalando o Shell BASH 
+    no Windows 10               https://jvaz.wordpress.com/2016/04/06/instalando-o-shell-bash-no-windows-10-build-14316/
+
+Instalar Linux no Windows:      https://aka.ms/wslstore
+Executar CMD admin no Windows:  http://www.techtudo.com.br/listas/noticia/2016/05/mais-de-dez-maneiras-de-abrir-o-prompt-de-comando-no-windows-10.html
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+COMANDOS/ATALHOS/ETC
+---------------------------------------------------------------------------------------------------------------------
+CTRL-U:     No Chrome mostra o cógido fonte.
+Validação de EMAIL com expressões regulares: 
+    ^\w*(\.\w*)?@\w*\.[a-z]+(\.[a-z]+)?$
+    ab--c------def--g------hi----------j
+    Explicando: 
+                (a) A expressão ^ indica o começo da string/linha.
+                (b) \w* pega qualquer caracteres alpha numericos, é o equivalente a [a-zA-Z0-9_]. O asterísco é quantitativo, 
+                    detectando qualquer quantidade desses caracteres, iniciando no 0 e indo até o infinito.
+                (c) A expressão (\.\w*)? significa: parenteses inicia um agrupamento. A expressão \. detecta literamente um ponto .. 
+                    A expressão \w* qualquer quantidade de caracteres alpha numéricos.
+                (d) O ponto de interrogação (?) é quantitativo: determina que o que vier imediatamente antes dele aparecer na 
+                    expressão 0 ou 1 vez. Nessa expressão ele aparece duas vezes.
+                (e) O arroba seria o arroba do email mesmo…
+                (f) \w* que aparece depois do arroba já falamos várias vezes logo acima.
+                (g) \.[a-z] pega um ponto seguido de letras minúsculas. vai detectar algo como .com, .net, etc…
+                (h) + significa que o que estiver imediatamente antes dele precisa aparecer 1 ou mais vezes no termo.
+                (i) (\.[a-z]+) abrimos novamente um agrupamento com o parenteses. \. pega o ponto. A classe [a-z] seleciona 
+                    qualquer letra minúscula. E o mais aparece novamente, dizendo que tudo aquilo que estiver antes dele 
+                    deve aparecer pelo menos 1 vez
+                (j) E a expressão $ pra finalizar significa final da string.
+PATH:
+        set PATH=%PATH%;"C:\Program Files\MongoDB\Server\3.6\bin"
+        setx PATH "$env:path;\the\directory\to\add" -m  (powershell)
+        c:\data\db  (server)
+        setx /?
+CMD Admin;  WIN+Spara buscador, 
+            CMD  botao direita para escolher como administrador
+
+Início aplicativos W10: https://support.microsoft.com/pt-br/help/4026268/windows-10-change-startup-apps
+    Pasta do windows: C:\Users\gideo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+        Copiar atalho para esta pasta
+
+POWERSHEL
+------------------------------------------------------------------------------
+Tipos de permissões:
+Restricted
+Não carrega ou executa os arquivos de configuração e scripts PowerShell. Este é o padrão da Política de Segurança (até o Windows Server 2012 R2).
+
+AllSigned
+Exige que todos os scripts e arquivos de configuração devem ser assinados por um fornecedor confiável, incluindo os scripts que você escreveu em seu computador(local).
+
+RemoteSigned
+Exige que todos os scripts e arquivos de configuração devem ser assinados por um fornecedor confiável. Se utilizar esta Política de Execução, ainda será possível executar scripts "não assinados" desde que o arquivo .ps1 seja armazenado em seu computador.
+
+Esta é a execução padrão no Windows Server 2012 R2.
+
+Unrestricted
+Carrega e executa todos os arquivos de configuração e scripts PowerShell. Se você executar um script "não assinado" poderá ser solicitado à sua permissão antes de executar.
+
+Bypass
+Não há nenhuma restrição, bloqueio, advertências ou avisos.
+
+Undefined
+Remove a Política de Execução atual, seja ela qual for, a não ser que esta política esteja definida no escopo de uma Diretiva de Grupo.
+
+Para atribuir uma determinada Política de Execução, basta executar o cmdlet Set-ExecutionPolicy seguido pelo nome da política adequada à sua necessidade.
+
+>Set-ExecutionPolicy RemoteSigned

@@ -1,0 +1,165 @@
+
+https://gist.github.com/leocomelli/2545add34e4fec21ec16
+
+Estados:
+
+    Modificado (modified);
+    Preparado (staged/index)
+    Consolidado (comitted);
+
+
+Configurações:
+Geral
+
+As configurações do GIT são armazenadas no arquivo .gitconfig localizado dentro do 
+diretório do usuário do Sistema Operacional
+ (Ex.: Windows: C:\Users\Documents and Settings\Leonardo ou *nix /home/leonardo).
+
+As configurações realizadas através dos comandos abaixo serão incluídas no arquivo 
+citado acima.
+
+Ignorar Arquivos:
+
+    Os nomes de arquivos/diretórios ou extensões de arquivos listados no arquivo .gitignore não serão 
+    adicionados em um repositório. Existem dois arquivos .gitignore, são eles:
+
+        Geral: Normalmente armazenado no diretório do usuário do Sistema Operacional. O arquivo que 
+        possui a lista dos arquivos/diretórios a serem ignorados por todos os repositórios deverá ser
+        declarado conforme citado acima. O arquivo não precisa ter o nome de .gitignore.
+        Por repositório: Deve ser armazenado no diretório do repositório e deve conter a lista dos 
+        arquivos/diretórios que devem ser ignorados apenas para o repositório específico.
+
+git help        // Ajuda
+    git help addgit 
+    git help commit
+    git help <qualquer comando git>
+
+git config --global user.name "Leonardo Comelli"                // designar usuário
+git config --global user.email leonardo@software-ltda.com.br    // designar email
+git config --global core.editor vim                             // designar editor
+git config --global merge.tool vimdiff                          // designar ferramenta de merge
+git config --global core.excludesfile ~/.gitignore              // designar arquivos a serem ignorados
+git config --list                                               // listar configurações
+
+REPOSITÓRIO LOCAL:
+    git init                                // criar novo repositório no diretório corrente
+    git status                              // Verificar estado dos arquivos/diretórios
+    git add meu_arquivo.txt                 // Adicionar um arquivo em específico na staged area
+    git add meu_diretorio                   // Adicionar um diretório em específico
+    git add .	                            // Adicionar todos os arquivos/diretórios
+    git add -f arquivo_no_gitignore.txt     // Adicionar um arquivo que esta listado no .gitignore (geral ou do repositório)
+
+Comitar arquivo/diretório
+    git commit meu_arquivo.txt                                  // Comitar um arquivo
+    git commit meu_arquivo.txt meu_outro_arquivo.txt            // Comitar vários arquivos
+    git commit meuarquivo.txt -m "minha mensagem de commit"     // Comitar informando mensagem
+
+Remover arquivo/diretório
+    git rm meu_arquivo.txt                                      // Remover arquivo
+    git rm -r diretorio                                         // Remover diretório
+
+
+…or create a new repository on the command line
+echo "# crud-original" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/gimagodev/crud-original.git
+git push -u origin master
+
+or push an existing repository from the command line
+
+git remote add origin https://github.com/gimagodev/crud-original.git
+git push -u origin master
+
+
+---------------------------
+Configurando o git
+in�cio do git: https://git-scm.com/book/pt-br/v1/Primeiros-passos-Resumo
+$ git config --global core.editor emacs
+para sair do vim:  : (dois pontos)
+
+sudo apt-get install git
+root@gimagodev:~# git config --global user.name "gimagodev"
+root@gimagodev:~# git config --global user.email "gimagondev@gmail.com"
+root@gimagodev:~# git config --global color.wi true
+
+git config --list
+
+git init
+ls -la  mostra arquivos ocultos
+criar arquivo:  touch arquivo.txt
+
+git status - mostra situa��o dos arquivos no reposit�rio?
+git add arquivo.tx   - adiciona o arquivo 
+git add .
+
+git commit -m "Meu primeiro commit"
+git log - mostra dados do commit
+
+git commit .   comita todos (muito cuidado)
+git commit -a -m "Comitando arquivos e teste juntos"
+git log -p -2  para ver os �ltimos 2 commites
+git log --stat mostra as estat�sticas do git
+git log --prety=online mostra os commits em uma linha
+git log --pretty=format:"%h - %an, %ar : %s"    formatando o log do commit
+git log --since=2.days    os �ltimos 2 dias.
+arquivo .gitignore  lista os arquivos que vc n�o quer que estejam no controle de vers�o.Adicione tb este arquivo no git.
+git reset HEAD nomearquivo.txt   para retirar da stage �rea 
+
+voltar vers�o anteiror
+git checkout "escolher um rash"
+git reset HEAD~1    volta tantos commits quanto o n�mero indicado ap�is o ~
+git reset HEAD~1 --soft    volta para o stage �rea do commit voltado podendo alterar o arquivo
+git reset HEAD~1 --hard    volta para o commit e perde o commit feito
+git branch    mostra o branch em que voc� est�
+
+branch s�o galhos, ramifica��es
+merge serve para inserir as altera��es do branch no tronco principal (branch master)
+git chedkout -b funcionalidade1   cria um novo branch chamado funcionalidade1
+git checkout master    volta para o branch master
+
+merge o branch funcionalidade no branch master
+git checkout master
+git merge funcionalidade1   (ele tamb�m gera um commit junto como merge)
+
+Uma maneira mais organizada de fazer um merge, talvez seja usar o rebase.
+O rebase, al�m de fazer o merge,  reposiciona os commits na ordem de cria��o
+
+Exemplo:
+git checkout master   (indo para o branch master)
+git rebase funcionalidade1   (fazendo um rebase de funcionalidade para o master)
+Mensagem mostrada pelo rebase:
+First, rewinding head to replay your work on top of it...
+Applying: Comitando arquivos e teste juntos
+Applying: Modificando arquivo.txt
+
+ O merge n�o reordena os commits e ainda muitas vezes gera um commit adicional para ser conclu�do. O rebase reordena os commits, n�o gerando assim um commit adicional.
+
+Um padr�o para branches:
+
+Boa tarde Thiago. Costumamos seguir um padr�o de dois branches principais, normalmente master e develop. No master mantemos o c�digo est�vel e pronto para produ��o(de onde lan�amos as tags) e em develop o c�digo em desenvolvimento(hotfixes, dev da nova release, etc). A medida que este c�digo vai se tornando est�vel para produ��o � feito o merge no master, claro seguindo um determinado padr�o. A partir do develop derivam os branches de features, hotfixes, etc, que representam novas funcionalidades e corre��es que est�o sendo desenvolvidas em separado. Caso um dev necessite de um recurso que esta sendo desenvolvido em uma feature para poder trabalhar, ele ramifica um novo branch a partir dela e assim vai. A medida que forem conclu�dos os branches s�o mergeados recursivamente e por fim terminam no develop, at� estarem prontos para produ��o (master). Para facilitar seu entendimento e aumentar a produtividade da sua equipe recomendo que use o padrao do git flow http://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html
+
+Para quem quer um console bacana no Windows, � uma boa olhar este:
+http://cmder.net/
+Ele tem abas, � integrado com Git Bash, CMD e Power Shell
+
+***************************************************************************************
+Pedindo login e senha
+
+Ol� Eder.
+
+Provavelmente seu reposit�rio local est� configurado para enviar para o remoto atrav�s de HTTPS, n�o de SSH, e por isso continua pedindo usu�rio e senha.
+
+Tente o seguinte procedimento:
+1. V� o Github e copie o endere�o SSH do seu reposit�rio.
+
+2. Na sua pasta local, digite:
+
+git remote remove origin
+git remote add origin <enderecoSSH>
+E substitua <enderecoSSH> pelo endere�o copiado do Github.
+
+3. Tente fazer o push novamente.
+
+****************************************************************

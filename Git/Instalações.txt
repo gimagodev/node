@@ -1,0 +1,144 @@
+Sublime Text
+
+php 5.5
+
+composer gerenciador de dependêbcua para PHP
+utilizado para a instalação
+
+usar o postman que é uma extensão do google chrome que testa APIs
+
+1) instalar o git
+
+2) Instalar o Composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+
+primeiro instalar curl
+apt-get install curl
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+apt install composer
+
+php composer-setup.php
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.3.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar
+
+
+
+
+
+php 5.5
+
+composer gerenciador de dependêbcua para PHP
+utilizado para a instalação
+
+usar o postman que é uma extensão do google chrome que testa APIs
+
+1) instalar o git
+
+2) Instalar o Composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+
+primeiro instalar curl
+apt-get install curl
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+apt install composer
+
+php composer-setup.php
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.3.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar
+
+
+php 5.5
+
+composer gerenciador de dependêbcua para PHP
+utilizado para a instalação
+
+usar o postman que é uma extensão do google chrome que testa APIs
+
+1) instalar o git
+
+2) Instalar o Composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+
+primeiro instalar curl
+apt-get install curl
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+apt install composer
+
+php composer-setup.php
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.3.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar
+
+
+php 5.5
+
+composer gerenciador de dependêbcua para PHP
+utilizado para a instalação
+
+usar o postman que é uma extensão do google chrome que testa APIs
+
+1) instalar o git
+
+2) Instalar o Composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+
+primeiro instalar curl
+apt-get install curl
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+apt install composer
+
+php composer-setup.php
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.3.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar
+
+
+
+php 5.5
+
+composer gerenciador de dependêbcua para PHP
+utilizado para a instalação
+
+usar o postman que é uma extensão do google chrome que testa APIs
+
+1) instalar o git
+
+2) Instalar o Composer
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-16-04
+
+primeiro instalar curl
+apt-get install curl
+
+cd ~
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+
+apt install composer
+
+php composer-setup.php
+All settings correct for using Composer
+Downloading...
+
+Composer (version 1.3.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar

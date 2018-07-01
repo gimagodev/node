@@ -1,0 +1,225 @@
+biblia_node   MYSSQL
+
+http://www.luiztools.com.br/post/como-usar-nodejs-mysql/
+
+Crie uma pasta para guardar os arquivos do seu projeto Node.js, você pode fazer 
+isso pelo console se quiser, usaremos ele algumas vezes nesse tutorial. 
+No exemplo abaixo, criei a pasta e depois entrei dentro dela.
+
+Parte 2: Criando e populando a tabela:
+> mkdir nodemysql
+> cd nodemysql
+
+Agora execute no console o comando “npm init” que o próprio NPM 
+(gerenciador de pacotes do Node) vai te guiar para a construção do arquivo 
+packages.json, que é o arquivo de configuração do projeto. Se ficar em dúvida ou 
+com preguiça, segue o meu package.json abaixo:
+
+{
+  "name": "nodemysql",
+  "version": "1.0.0",
+  "description": "tutorial de node com mysql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "luiztools",
+  "license": "ISC"
+}
+
+Com o arquivo de configurações criado, vá no console novamente, na pasta do projeto 
+e digite o seguinte comando para instalar a extensão mysql, que permite usar Node 
+com MySQL:
+
+nodemysql> npm install -S mysql
+
+A flag “-S”diz que é pra salvar essa dependência no arquivo packages.json. 
+Se você abrir o arquivo vai ver que tem coisa nova por lá.
+
+Agora, crie um arquivo create-table.js dentro dessa pasta, que será o arquivo que 
+vai criar e popular nossa tabela que usaremos neste exercícios. Também usaremos ele 
+para entender o básico de comandos SQL, conexão com o banco, etc. Vamos começar nosso 
+create-table.js definindo uma constante para a String de conexão com o banco e uma 
+constante para o objeto que vai carregar a extensão mysql (e que mais tarde usaremos 
+para conectar, executar SQL, etc). O código abaixo é auto explicativo:
+
+const mysql      = require('mysql');
+const connection = mysql.createConnection({
+  host     : 'XXX',
+  port     : XXX,
+  user     : 'XXX',
+  password : 'XXX',
+  database : 'XXX'
+});
+
+Agora, usaremos esse objeto connection para fazer uma conexão e, em caso de sucesso, 
+imprimir uma mensagem de sucesso. Caso contrário, se der erro, uma mensagem de falha:
+
+connection.connect(function(err){
+  if(err) return console.log(err);
+  console.log('conectou!');
+})
+
+Se esse código lhe parece muito bizarro, calma, é fácil de entender. O objeto 
+connection permite que façamos coisas no banco de dados, uma delas é a conexão 
+(connect). No entanto, o Node.js trabalha de maneira assíncrona, o que quer dizer 
+que ele não espera pela conexão ser estabelecida. Quando ele terminar de estabelecer 
+a conexão, ele vai executar a função de callback passada por parâmetro, contendo ou
+ não um objeto de erro.
+
+ Para executar esse arquivo, abra o console (se estiver usando VS Code, apenas aperta 
+ F5 com este arquivo aberto no editor) e na pasta do projeto digite:
+
+ nodemysql> node create-table.js
+
+ Agora que sabemos como conectar no MySQL através de Node.js, é hora de executarmos 
+ o comando que vai criar a tabela e popular ela, ao invés de simplesmente imprimir 
+ “conectou”. Sendo assim, vamos criar uma função JS nesse arquivo pra fazer a criação
+  da tabela:
+
+  function createTable(conn){
+
+      const sql = "CREATE TABLE IF NOT EXISTS Clientes (\n"+
+                  "ID int NOT NULL AUTO_INCREMENT,\n"+
+                  "Nome varchar(150) NOT NULL,\n"+
+                  "CPF char(11) NOT NULL,\n"+
+                  "PRIMARY KEY (ID)\n"+
+                  ");";
+      
+      conn.query(sql, function (error, results, fields){
+          if(error) return console.log(error);
+          console.log('criou a tabela!');
+      });
+  }
+
+Coloque a chamada desta função no callback após a conexão no banco, passando o 
+objeto conn por parâmetro, como abaixo:
+
+connection.connect(function(err){
+  if(err) return console.log(err);
+  console.log('conectou!');
+  createTable(connection);
+})
+
+Mande rodar esse arquivo novamente e verá que ele criará a sua tabela com sucesso. 
+Para adicionar algumas linhas de exemplo, vamos criar outra função que vai fazer um 
+bulk insert no MySQL via Node.js (inserção de várias linhas de uma vez):
+
+function addRows(conn){
+  const sql = "INSERT INTO Clientes(Nome,CPF) VALUES ?";
+  const values = [
+        ['teste1', '12345678901'],
+        ['teste1', '09876543210'],
+        ['teste3', '12312312399']
+      ];
+  conn.query(sql, [values], function (error, results, fields){
+          if(error) return console.log(error);
+          console.log('adicionou registros!');
+          conn.end();//fecha a conexão
+      });
+}
+
+Essa função deve ser chamada dentro do callback da query que criou a tabela, logo 
+abaixo de onde diz “console.log(‘criou a tabela!’);”. Se não quiser fazer isso dessa 
+maneira, você pode fazer pela sua ferramenta de gerenciamento do MySQL (como o MySQL 
+Workbench) ou pelo Visual Studio, se estiver usando ele para programar Node.js.
+
+--------------------------------------------------------
+Parte 3: Criando a API
+--------------------------------------------------------
+
+Agora que já temos nosso banco de dados MySQL pronto, com dados de exemplo e aprendemos
+ como fazer a conexão nele, vamos criar uma API básica usando Express para conseguir 
+ criar um CRUD com Node.js + MySQL no próximo passo. Se já sabe como montar uma API 
+ básica com Node + Express, pule esta parte.
+
+Vamos começar adicionando a dependência do Express (framework web) e do Body-Parser 
+(parser para os POSTs futuros) no projeto via linha de comando na pasta do mesmo:
+
+nodesqlserver> npm install -S express body-parser
+
+Na sequência, vamos criar um arquivo index.js na pasta do projeto onde vamos criar 
+o nosso servidor da API para tratar as requisições que chegarão em breve. 
+Vamos começar bem simples, apenas definindo as constantes locais que serão usadas 
+mais pra frente:
+
+    const express = require('express');
+    const app = express();         
+    const bodyParser = require('body-parser');
+    const port = 3000; //porta padrão
+    const mysql = require('mysql');
+
+Agora, logo abaixo, vamos configurar nossa aplicação (app) Express para usar o body 
+parser que carregamos da biblioteca body-parser, permitindo que recebamos mais tarde 
+POSTs nos formatos URLEncoded e JSON:
+
+    //configurando o body parser para pegar POSTS mais tarde
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+
+Na sequência, vamos criar um roteador e dentro dele definir uma regra inicial que 
+apenas exibe uma mensagem de sucesso quando o usuário requisitar um GET na raiz da 
+API (/) para ver se está funcionando.
+
+    //definindo as rotas
+    const router = express.Router();
+    router.get('/', (req, res) => res.json({ message: 'Funcionando!' }));
+    app.use('/', router);
+
+Note que na última linha eu digo que requisições que chegarem na raiz devem ser 
+mandadas para o router. Por fim, adicionamos as linhas abaixo no final do arquivo 
+que dão o start no servidor da API:
+
+    //inicia o servidor
+    app.listen(port);
+    console.log('API funcionando!');
+
+Teste sua API executando via console o seu index.js com o comando ‘node index.js’. 
+Você deve ver a mensagem de ‘API funcionando!’ no console, e se acessar no navegador 
+localhost:3000 deve ver o JSON default que deixamos na rota raiz!
+ 
+    node app.js
+
+-------------------------------------------------------------------------------
+Parte 4: Criando a listagem de clientes
+-------------------------------------------------------------------------------
+
+Agora que temos uma API funcionando, vamos adicionar uma rota /clientes que listará 
+todos os clientes do banco de dados. Para fazer isso, primeiro vamos criar uma função
+ que executará consultas SQL no banco usando uma conexão que será criada a cada uso
+  (existem técnicas mais avançadas para maior performance, mas por ora, isso resolve 
+  satisfatoriamente), como abaixo:
+
+ function execSQLQuery(sqlQry, res){ 
+    const connection = mysql.createConnection({
+        host     : 'XXX',
+        port     : XXX,
+        user     : 'XXX',
+        password : 'XXX',
+        database : 'XXX'
+    });
+    
+    connection.query(sqlQry, function(error, results, fields){
+        if(error) 
+            res.json(error);
+        else
+            res.json(results);
+        connection.end();
+        console.log('executou!');
+    });
+}
+
+Esta função pode ficar no final do seu arquivo index.js e nós a usaremos para fazer 
+todas as operações de banco de dados da nossa API, começando com consultar todos os 
+clientes. Para isso, começaremos criando a rota /clientes logo abaixo da rota / 
+(raiz):
+
+    router.get('/clientes', (req, res) =>{
+        execSQLQuery('SELECT * FROM Clientes', res);
+    })
+
+Agora, ao executarmos novamente nosso projeto e ao acessarmos a URL 
+localhost:3000/clientes, veremos todos os clientes cadastrados no banco de dados 
+(no passo 2, lembra?):
+
+
